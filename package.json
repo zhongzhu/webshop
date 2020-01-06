@@ -13,8 +13,10 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "bulma": "^0.8.0",
+    "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "vee-validate": "^3.2.1",
     "vue": "^2.5.2",

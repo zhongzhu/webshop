@@ -1,14 +1,29 @@
-import Firebase from 'firebase/app'
-import 'firebase/firestore'
-import moment from 'moment'
+import localforage from 'localforage'
 
-const firebaseConfig = {
-
-};
-
-let App = Firebase.initializeApp(firebaseConfig)
-let Firestore = App.firestore()
-Firestore.settings({ timestampsinSnapshots: true })
-
-export let FirebaseApp = App
-export default {}
+export default {
+  addProduct (product) {
+    localforage.length().then(n => {
+      let id = n + 1
+      localforage.setItem(id, product).then((value) => {
+        return {id: id, data: value}
+      })
+    })
+  },
+  saveProduct (id, product) {
+    return localforage.setItem(id, product)
+  },
+  deleteProduct (id) {
+    return localforage.removeItem(id)
+  },
+  getProducts () {
+    let products = []
+    localforage.iterate((value, id) => {
+      products.push({
+        id: id,
+        data: value
+      })
+    }).then(() => {
+      return products
+    })
+  }
+}
