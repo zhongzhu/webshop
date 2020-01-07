@@ -157,12 +157,12 @@ export default {
     }
   },
   created () {
-    db.getProducts().then((products) => {
-      products.forEach((product) => {
+    db.getProducts().then((myProducts) => {
+      myProducts.forEach((product) => {
         this.products.push({
           id: product.id,
           editing: false,
-          data: product.data()
+          data: product.data
         })
       })
     })

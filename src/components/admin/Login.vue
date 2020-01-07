@@ -34,8 +34,8 @@ export default {
       if (this.email !== auth.user || this.password !== auth.password) {
         this.error = 'Login failed. Your Email or password is wrong.'
       } else {
-        this.$store.commit('userIsAuthenticated')
-        this.$router.push('/admin/products')
+        sessionStorage.setItem('authenticated', true)
+        this.$router.push('/admin/product')
       }
     }
   }

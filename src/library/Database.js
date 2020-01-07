@@ -17,13 +17,15 @@ export default {
   },
   getProducts () {
     let products = []
-    localforage.iterate((value, id) => {
-      products.push({
-        id: id,
-        data: value
+
+    return new Promise((resolve, reject) => {
+      localforage.iterate((value, id) => {
+        products.push({ id: id, data: value })
+      }).then(() => {
+        resolve(products)
+      }).catch((err) => {
+        reject(err)
       })
-    }).then(() => {
-      return products
     })
   }
 }

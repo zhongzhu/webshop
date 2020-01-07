@@ -12,20 +12,20 @@ export default new Router({
       component: {
         render (c) { return c('router-view') }
       },
-      beforeEnter (to, _from, next) {
-        let auth = this.$store.state.auth
+      beforeEnter: (to, from, next) => {
+        let authenticated = sessionStorage.getItem('authenticated')
 
-        if (!auth.authenticated && to.path !== '/admin/login') {
+        if (!authenticated && to.path !== '/admin/login') {
           next({path: '/admin/login'})
-        } else if (auth.authenticated && to.path === '/admin/login') {
-          next({ path: '/admin/products' })
+        } else if (authenticated && to.path === '/admin/login') {
+          next({ path: '/admin/product' })
         } else {
           next()
         }
       },
       children: [
         { path: 'login', component: AdminLogin },
-        { path: 'products', component: AdminProduct }
+        { path: 'product', component: AdminProduct }
       ]
     }
   ]
