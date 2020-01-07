@@ -6,11 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     auth: {
-      currentUser: 'haha@mail.com',
-      password: 'haha'
+      user: 'haha@mail.com',
+      password: 'haha',
+      authenticated: false
     }
   },
   mutations: {
+    userIsAuthenticated (state) {
+      state.authenticated = true
+    },
+    userIsNotAuthenticated (state) {
+      state.authenticated = false
+    }
   },
   actions: {
   },

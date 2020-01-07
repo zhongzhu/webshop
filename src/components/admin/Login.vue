@@ -30,11 +30,13 @@ export default {
   },
   methods: {
     login () {
-      if (this.email !== this.$store.state.auth.currentUser || this.password !== this.$store.state.auth.password) {
+      let auth = this.$store.state.auth
+      if (this.email !== auth.user || this.password !== auth.password) {
         this.error = 'Login failed. Your Email or password is wrong.'
+      } else {
+        this.$store.commit('userIsAuthenticated')
+        this.$router.push('/admin/products')
       }
-
-      this.$router.push('/admin/products')
     }
   }
 }

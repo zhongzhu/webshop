@@ -15,9 +15,9 @@ export default new Router({
       beforeEnter (to, _from, next) {
         let auth = this.$store.state.auth
 
-        if (auth.currentUser === null && to.path !== '/admin/login') {
+        if (!auth.authenticated && to.path !== '/admin/login') {
           next({path: '/admin/login'})
-        } else if (auth.currentUser !== null && to.path === '/admin/login') {
+        } else if (auth.authenticated && to.path === '/admin/login') {
           next({ path: '/admin/products' })
         } else {
           next()
