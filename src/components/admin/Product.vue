@@ -3,92 +3,104 @@
     <h1 class="title is-2">Admin</h1>
     <h2 class="subtitle is-4">Products</h2>
 
-  <a @click="addingProduct = true" class="button is-primary"><fa-icon icon="plus"/> Add Product</a>
-
-  <div class="box" v-if="addingProduct">
-    <form @submit.prevent="addProduct">
-      <div class="field">
-        <button type="submit" class="button is-success">Save</button>
-      </div>
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input type="text" class="input" v-model="newProduct.name">
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <input type="text" class="input" v-model="newProduct.description">
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Image</label>
-        <div class="control">
-          <input type="text" class="input" v-model="newProduct.image">
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <div class="box" v-for="(product, index) in products" :key="product.id">
-    <h2 class="title is-5">{{ product.data.name }}
-      <span class="is-pulled-right">
-        <a @click="editProduct(index)" class="button is-primary"><fa-icon icon="edit"/></a>
-        <a @click="deleteProduct(index)" class="button is-danger"><fa-icon icon="times"/></a>
+    <button class="button is-primary"  @click="addingProduct = true">
+      <span class="icon">
+        <fa-icon icon="plus"/>
       </span>
-    </h2>
+      <span>Add Product</span>
+    </button>
 
-    <form @submit.prevent="saveProduct(index)" v-if="product.editing">
-      <div class="field">
-        <button type="submit" class="button is-success">Save</button>
-      </div>
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input type="text" class="input" v-model="product.name">
+    <div class="box" v-if="addingProduct">
+      <form @submit.prevent="addProduct">
+        <div class="field">
+          <div class="buttons is-right">
+            <button type="submit" class="button is-success">Save</button>
+            <button class="button is-info"  @click="addingProduct = false">Cancel</button>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <input type="text" class="input" v-model="product.description">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input type="text" class="input" v-model="newProduct.name">
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Image</label>
-        <div class="control">
-          <input type="text" class="input" v-model="product.image">
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <input type="text" class="input" v-model="newProduct.description">
+          </div>
         </div>
-      </div>
-    </form>
-    <form @submit.prevent="addSize(index)" v-if="product.editing">
-      <table class="table is-narrow">
-        <caption class="title is-5">Sizes</caption>
-        <thead>
-          <tr>
-            <th>Weight</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(size, sizeIndex) in product.data.sizes" :key="sizeIndex">
-            <td><input type="text" class="input" v-model="size.weight"></td>
-            <td><input type="text" class="input" v-model="size.name"></td>
-            <td><input type="text" class="input" v-model="size.price"></td>
-            <td><a @click="deleteSize(index, sizeIndex)" class="button is-danger"><fa-icon icon="times"/></a></td>
-          </tr>
-          <tr>
-            <td><input type="text" class="input" v-model="newSize.weight"></td>
-            <td><input type="text" class="input" v-model="newSize.name"></td>
-            <td><input type="text" class="input" v-model="newSize.price"></td>       <td><button type="submit" class="button is-success"><fa-icon icon="plus"/></button></td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
-  </div>
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <input type="text" class="input" v-model="newProduct.image">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="box" v-for="(product, index) in products" :key="product.id">
+      <h2 class="title is-5">{{ product.data.name }}
+        <span class="is-pulled-right">
+          <a @click="editProduct(index)" class="button is-primary"><fa-icon icon="edit"/></a>
+          <a @click="deleteProduct(index)" class="button is-danger"><fa-icon icon="times"/></a>
+        </span>
+      </h2>
+
+      <form @submit.prevent="saveProduct(index)" v-if="product.editing">
+        <div class="field">
+          <div class="buttons is-right">
+            <button type="submit" class="button is-success">Save</button>
+            <button class="button is-info"  @click="product.editing = false">Cancel</button>
+          </div>
+          <!-- <button type="submit" class="button is-success">Save</button> -->
+        </div>
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input type="text" class="input" v-model="product.data.name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <input type="text" class="input" v-model="product.data.description">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <input type="text" class="input" v-model="product.data.image">
+          </div>
+        </div>
+      </form>
+      <form @submit.prevent="addSize(index)" v-if="product.editing">
+        <table class="table is-narrow">
+          <caption class="title is-5">Sizes</caption>
+          <thead>
+            <tr>
+              <th>Weight</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(size, sizeIndex) in product.data.sizes" :key="sizeIndex">
+              <td><input type="text" class="input" v-model="size.weight"></td>
+              <td><input type="text" class="input" v-model="size.name"></td>
+              <td><input type="text" class="input" v-model="size.price"></td>
+              <td><a @click="deleteSize(index, sizeIndex)" class="button is-danger"><fa-icon icon="times"/></a></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="input" v-model="newSize.weight"></td>
+              <td><input type="text" class="input" v-model="newSize.name"></td>
+              <td><input type="text" class="input" v-model="newSize.price"></td>       <td><button type="submit" class="button is-success"><fa-icon icon="plus"/></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
   </section>
 </template>
 

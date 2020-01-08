@@ -1,12 +1,11 @@
 import localforage from 'localforage'
+import uniqid from 'uniqid'
 
 export default {
   addProduct (product) {
-    localforage.length().then(n => {
-      let id = n + 1
-      localforage.setItem(id, product).then((value) => {
-        return {id: id, data: value}
-      })
+    let id = uniqid()
+    localforage.setItem(id, product).then((value) => {
+      return {id: id, data: value}
     })
   },
   saveProduct (id, product) {
